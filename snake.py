@@ -54,6 +54,10 @@ def gameLoop():
     foodx = round(random.randrange(0, dis_width - 10) / 10.0) * 10.0
     foody = round(random.randrange(0, dis_height - 10) / 10.0) * 10.0
 
+    # Define position of food2
+    foodx2 = round(random.randrange(0, dis_width - 10) / 10.0) * 10.0
+    foody2 = round(random.randrange(0, dis_height - 10) / 10.0) * 10.0
+
     # Run game loop
     while not game_over:
 
@@ -112,6 +116,9 @@ def gameLoop():
         # Draw food
         pygame.draw.rect(dis, green, [foodx, foody, 10, 10])
 
+        # Draw food2
+        pygame.draw.rect(dis, red, [foodx2, foody2, 10, 10])
+
         # Update snake length
         snake_Head = []
         snake_Head.append(x1)
@@ -137,6 +144,24 @@ def gameLoop():
             foodx = round(random.randrange(0, dis_width - 10) / 10.0) * 10.0
             foody = round(random.randrange(0, dis_height - 10) / 10.0) * 10.0
             Length_of_snake += 1
+
+        # Check if snake hits food2
+        if x1 == foodx2 and y1 == foody2:
+            foodx2 = round(random.randrange(0, dis_width - 10) / 10.0) * 10.0
+            foody2 = round(random.randrange(0, dis_height - 10) / 10.0) * 10.0
+            Length_of_snake += 1
+
+        # Move food2
+        if time.time() % 1 == 0:
+            direction = random.choice(['up', 'down', 'left', 'right'])
+            if direction == 'up':
+                foody2 -= 10
+            elif direction == 'down':
+                foody2 += 10
+            elif direction == 'left':
+                foodx2 -= 10
+            elif direction == 'right':
+                foodx2 += 10
 
         # Set game speed
         clock.tick(30)
